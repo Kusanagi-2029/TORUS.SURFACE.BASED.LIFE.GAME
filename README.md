@@ -295,7 +295,7 @@ class BorderDrawStrategy {
 > ![image](https://github.com/Kusanagi-2029/TORUS.SURFACE.BASED.LIFE.GAME/assets/71845085/91d76b69-c848-4463-ba7f-1021fdd538b2)
 > ![image](https://github.com/Kusanagi-2029/TORUS.SURFACE.BASED.LIFE.GAME/assets/71845085/fdaab6ff-e5c1-4116-b9ef-aca279289341)
 
-<a name="torus_surface"><h3>[Поверхность Тора</h3></a>
+<a name="torus_surface"><h3>Поверхность Тора</h3></a>
 Реализация поверхности Тора содержится в методе invertCellState класса `LifeGame`. Этот метод обрабатывает инверсию состояния клетки по заданным координатам, учитывая граничные условия, характерные для Поверхности Тора.
 ```javascript
     /** 
@@ -356,7 +356,7 @@ class BorderDrawStrategy {
 ```
 
 <a name="game_stop"><h3>Условия прекращения игры</h3></a>
-Реализовано в классе GameRunner:
+Реализовано в классе `GameRunner`:
 ```javascript
     /**
      * Выполняет один шаг игры и обновляет информацию о поколении.
