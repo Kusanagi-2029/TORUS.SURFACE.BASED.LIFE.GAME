@@ -11,7 +11,7 @@
 		- [Правила игры](#rules)
   		- [Горячие клавиши](#hotkeys) 
 		- [Кнопки управления](#generation_controls_buttons)
-    		- [Размер поля - Ручной Ввод через Input-Поле](#input_manual)
+  		- [Размер поля - Ручной Ввод через Input-Поле](#input_manual)
    		- [Размер поля - Авто относительно размера Экрана Браузера](#input_auto_screen)
     		- [Кнопки размеров ячейки Canvas](#cell_size_buttons)
     		- [Метрики](#metrics)
