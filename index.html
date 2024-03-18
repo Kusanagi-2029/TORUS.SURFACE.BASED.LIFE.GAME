@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <!-- Мета-теги -->
+    <meta charset="UTF-8">
+    <meta name='viewport'
+        content='width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no'>
+
+    <!-- Заголовок страницы -->
+    <title>Игра «Жизнь» по Дж. Конвею</title>
+
+    <!-- Подключение таблицы стилей -->
+    <link rel="stylesheet" type="text/css" href="app.css">
+
+    <!-- Подключение главного скрипта приложения -->
+    <script type="module" src="./Scripts/app.js"></script>
+</head>
+
+<body>
+    <!-- Само canvas-поле -->
+    <canvas id="grid"></canvas>
+    <h1 class="gameTitle"><u>Игра «Жизнь» по Джону Конвею</u></h1>
+    <div class="sectionCollapsible">
+        <h2>Правила игры:</h2>
+        <div class="subSection">
+            <button class="collapsible-rules" data-hot-key="И">Показать/Скрыть правила</button>
+            <div class="content-rules">
+                <p>
+                    - Место действия игры — размеченная на клетки плоскость, которая может быть безграничной,
+                    ограниченной
+                    или замкнутой.
+                    Каждая клетка на этой поверхности имеет восемь соседей, окружающих её, и может находиться в двух
+                    состояниях: быть «живой» (заполненной) или «мёртвой» (пустой).
+                </p>
+                <p>
+                    - Распределение живых клеток в начале игры называется первым поколением. Каждое следующее
+                    поколение
+                    рассчитывается на основе предыдущего по таким правилам:
+                <ul>
+                    <li>в пустой (мёртвой) клетке, с которой соседствуют три живые клетки, зарождается жизнь;</li>
+                    <li>если у живой клетки есть две или три живые соседки, то эта клетка продолжает жить; в
+                        противном
+                        случае (если живых соседей меньше двух или больше трёх) клетка умирает («от одиночества» или
+                        «от
+                        перенаселённости»).</li>
+                </ul>
+                </p>
+                <p>
+                    - Игра прекращается, если
+                <ul>
+                    <li>на поле не останется ни одной «живой» клетки;</li>
+                    <li>конфигурация на очередном шаге в точности (без сдвигов и поворотов) повторит себя же на
+                        одном из
+                        более ранних шагов (складывается периодическая конфигурация);</li>
+                    <li>при очередном шаге ни одна из клеток не меняет своего состояния (частный случай предыдущего
+                        правила,
+                        складывается стабильная конфигурация).</li>
+                </ul>
+                </p>
+                <p>
+                    - Игрок не принимает активного участия в игре. Он лишь расставляет или генерирует начальную
+                    конфигурацию
+                    «живых» клеток, которые затем изменяются согласно правилам. Несмотря на простоту правил, в игре
+                    может
+                    возникать огромное разнообразие форм.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="mainContent">
+        <div class="section">
+            <h1>Управление:</h1>
+            <div class="subSection">
+                <button id="btn_start" data-hot-key="Ц">Пуск</button>
+                <button id="btn_stop" data-hot-key="Ы">Стоп</button>
+                <button id="btn_step" data-hot-key="А">Пошагово</button>
+                <button id="btn_clear" data-hot-key="Ч">Очистить</button>
+            </div>
+        </div>
+        <div class="section">
+            <h1>Параметры:</h1>
+            <h2 class="tooltipHeader" data-tooltip="По умолчанию в ширину и высоту записывается размер экрана">
+                Размер поля (ручной ввод):</h2>
+            <div class="subSection">
+                <label for="field-width">Ширина:</label>
+
+                <!-- Установка минимального /  значения для ширины через стрелочки input'a -->
+                <input type="number" id="field-width" value="100" min="1" max="10000" placeholder="Ширина поля">
+                <label for="field-height">Высота:</label>
+
+                <!-- Установка минимального / максимального значения для высоты через стрелочки input'a  -->
+                <input type="number" id="field-height" value="100" min="1" max="10000" placeholder="Высота поля">
+                <button id="btn_apply_size" data-hot-key="П">Применить</button>
+            </div>
+            <h2> Размер поля (относительно экрана):</h2>
+            <div class="subSection">
+                <button data-size-x="0.5" data-size-y="0.5">Половина ширины и высоты (наиболее легковесный)</button>
+                <button data-size-x="1" data-size-y="0.5">На всю ширину</button>
+                <button data-size-x="1" data-size-y="1">Фуллскрин - нужно скроллить</button>
+                <div class="hardCalulate">
+                    <button data-size-x="2" data-size-y="2">Двойной скрин - нужно скроллить (наиболее
+                        тяжеловесный)</button>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Размер ячейки Canvas:</h2>
+            <div class="subSectionCellSize">
+                <div class="hardCalulate">
+                    <button data-cell-size="1" data-hot-key="К">1х1 (наиболее тяжеловесный)</button>
+                </div>
+                <button data-cell-size="2" data-hot-key="Е">2х2 (по умолчанию с начала загрузки)</button>
+                <button data-cell-size="5" data-hot-key="Н">5х5</button>
+                <button data-cell-size="10" data-hot-key="Г">10х10</button>
+                <button data-cell-size="25" data-hot-key="Ш">25х25 (наиболее легковесный)</button>
+            </div>
+        </div>
+        <div class="sectionCollapsible">
+            <h2>Метрики:</h2>
+            <small id="generation-info">Информация о номере поколения...</small>
+            <small id="generation-time" class="tooltip"
+                data-tooltip="ВНИМАНИЕ! РАБОТАЕТ ТОЛЬКО В АВТОМАТИЧЕСКОМ РЕЖИМЕ, НЕ в ПОШАГОВОМ. В пошаговом режиме указывается время генерации последнего АВТОМАТИЧЕСКИ сгенерированного поколения">
+                Временная метрика по генерации нового поколения...
+            </small>
+            <div class="subSectionСollapsible">
+                <!-- Добавить кнопку для управления видимостью таблицы -->
+                <button class="collapsible" data-hot-key="С">Свернуть/развернуть таблицу</button>
+                <!-- Обертка для таблицы, которая будет сворачиваться/разворачиваться -->
+                <div class="content">
+                    <table id="generation-table">
+                        <thead>
+                            <tr>
+                                <th>Номер поколения</th>
+                                <th>Время создания (миллисекунды)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="generation-table-body">
+                            <!-- Сюда будут добавляться строки с информацией о поколениях -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <h2 id="stop-game-info" class="tooltipHeader"
+                data-tooltip="Игра автоматически завершается либо по условиями ЖИЗНИ Дж.Конвея, либо при задании нового размера ячейки (на поле не остаётся ни одной «живой» клетки)">
+                Игра ещё не завершена...</h2>
+        </div>
+        <div class="section">
+            <h2>Задержка:</h2>
+            <div class="subSection">
+                <h2 id="generation-delay"></h2>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Шаблоны:</h2>
+            <div class="subSectionPresets">
+                <button id="btn_draw_life" data-hot-key="М">ЖИЗНЬ</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

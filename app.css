@@ -1,0 +1,310 @@
+/* Общие стили */
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+p {
+  display: inline-block;
+}
+
+.gameTitle {
+  font-size: 2.5rem;
+}
+
+html,
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+  background-color: #333;
+  color: #ccc;
+}
+
+body {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mainContent {
+  padding-bottom: 40px;
+}
+
+.section,
+.sectionCollapsible {
+  display: flex;
+  flex-direction: column;
+}
+
+.subSection,
+.subSectionPresets,
+.subSectionCellSize {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: row;
+}
+
+.subSectionСollapsible {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Кнопки */
+button {
+  width: 100%;
+  max-width: 200px;
+  height: 64px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover,
+button:focus {
+  background-color: #0056b3;
+}
+
+button:active {
+  background-color: #022850;
+}
+
+#btn_start {
+  background-color: green;
+}
+
+#btn_start:hover,
+#btn_start:focus {
+  background-color: darkgreen;
+}
+
+#btn_start:active {
+  background-color: rgb(3, 54, 3);
+}
+
+#btn_clear {
+  background-color: tomato;
+  color: black;
+}
+
+#btn_clear:hover,
+#btn_clear:focus {
+  background-color: red;
+  color: black;
+}
+
+#btn_clear:active {
+  background-color: darkred;
+  color: black;
+}
+
+#btn_stop {
+  background-color: slateblue;
+}
+
+#btn_stop:hover,
+#btn_stop:focus {
+  background-color: darkslateblue;
+}
+
+#btn_stop:active {
+  background-color: indigo;
+}
+
+/* Кнопки Размеров Канвас-ячеек */
+.subSectionCellSize {
+  button {
+    color: black;
+    background: rgb(34, 193, 195);
+    background: radial-gradient(circle, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+  }
+}
+
+/* Кнопки Шаблонов */
+.subSectionPresets {
+  button {
+    background: rgb(131, 58, 180);
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+  }
+}
+
+/* Кнопки наиболее тяжеловесных вариантов */
+.hardCalulate {
+  button {
+    color: black;
+    background: rgb(160, 0, 0);
+    background: linear-gradient(90deg, rgba(160, 0, 0, 1) 0%, rgba(255, 0, 0, 1) 50%, rgba(229, 17, 65, 1) 100%);
+  }
+}
+
+/* Кнопка "Тяжеловесная случайность" */
+button.hardCalculate {
+  color: black;
+  background: rgb(160, 0, 0);
+  background: linear-gradient(90deg, rgba(160, 0, 0, 1) 0%, rgba(255, 0, 0, 1) 50%, rgba(229, 17, 65, 1) 100%);
+}
+
+/* Стили для input */
+input {
+  width: 150px;
+  /* Задаем желаемую ширину */
+  height: 32px;
+  /* Задаем желаемую высоту */
+  border-radius: 4px;
+  /* Округляем углы */
+  border: 1px solid #d9d9d9;
+  /* Устанавливаем рамку */
+  padding: 4px 11px;
+  /* Устанавливаем отступы */
+  font-size: 14px;
+  /* Задаем размер шрифта */
+  transition: all 0.3s;
+  /* Добавляем плавное переходы */
+}
+
+/* Стили для фокуса */
+input:focus {
+  border-color: #40a9ff;
+  /* Изменяем цвет рамки при фокусе */
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+  /* Добавляем тень при фокусе */
+}
+
+.content,
+.content-rules {
+  display: none;
+}
+
+.content.active,
+.content-rules.active {
+  display: block;
+}
+
+/* 
+Был использован класс .collapsed вместо .active, чтобы отображать стили для свернутого состояния кнопки. 
+Это сделано для удобства
+*/
+.collapsible,
+.collapsible-rules {
+  background-color: #06f3ef;
+  color: black;
+}
+
+.collapsible.collapsed,
+.collapsible-rule.collapsed {
+  background-color: #007bff;
+  color: #fff;
+}
+
+
+/* Стили для всплывающих подсказок */
+.tooltip,
+.tooltipHeader {
+  border-bottom: 1px cyan;
+  cursor: help;
+  width: auto;
+  position: relative;
+}
+
+.tooltip::after,
+.tooltipHeader::after {
+  background: rgba(2, 2, 3, 0.67);
+  border-radius: 8px 8px 8px 0px;
+  box-shadow: 1px 1px 10px rgba(15, 14, 14, 0.5);
+  color: cyan;
+
+  /* Главная часть кода, определяющая содержимое всплывающей подсказки */
+  margin-top: -28px;
+  margin-left: 12px;
+  opacity: 0;
+  content: attr(data-tooltip);
+
+
+  /* Сделать прозрачным элемент и скрыть его, добавив плавность */
+  padding: 3px 7px;
+  visibility: hidden;
+  transition: all 0.7s ease-in-out;
+
+}
+
+.tooltip:hover::after,
+.tooltipHeader:hover::after {
+  opacity: 1;
+  /* Показать элемент */
+  visibility: visible;
+}
+
+#generation-table {
+  column-count: 2;
+  /* Устанавить количество столбцов */
+  column-gap: 20px;
+  /* Устанавить промежуток между столбцами */
+}
+
+/* Опциональные стили для ячеек таблицы */
+#generation-table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+#grid {
+  margin: auto;
+  /* Это выровняет по центру */
+  cursor: crosshair;
+}
+
+/* Стили для кастомного скроллбара */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: darkgray;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+::-webkit-scrollbar-button {
+  background-color: transparent;
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-button:start:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='gray' d='M12 8l-4 4h8z'/%3E%3C/svg%3E");
+}
+
+::-webkit-scrollbar-button:end:increment {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='gray' d='M12 16l4-4h-8z'/%3E%3C/svg%3E");
+}
+
+::-webkit-scrollbar-button:horizontal:start:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='gray' d='M8 12l4-4v8z'/%3E%3C/svg%3E");
+}
+
+::-webkit-scrollbar-button:horizontal:end:increment {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='gray' d='M16 12l-4 4v-8z'/%3E%3C/svg%3E");
+}
