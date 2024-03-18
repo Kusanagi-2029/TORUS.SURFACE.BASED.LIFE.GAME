@@ -56,6 +56,10 @@
 Так как файлов скриптов много, и они разделены на модули, то CORS просто не позволит прогрузить всё через index.html - нужно установить:
 1) [VS Code](https://code.visualstudio.com/)
 2) [Live Server VS Code Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+3) Запустить Live Server в Vs Code, нажав в правом нижнем углу кнопку "Go Live":
+   ![image](https://github.com/Kusanagi-2029/TORUS.SURFACE.BASED.LIFE.GAME/assets/71845085/cb2c5738-6397-40de-92f7-5cefe0ce024d)
+4) Сервер выделит свободный порт, начиная с 5500, и сам запустит приложение на нём:
+   ![image](https://github.com/Kusanagi-2029/TORUS.SURFACE.BASED.LIFE.GAME/assets/71845085/bd4a165a-1216-4287-8ed3-f086d2b52ac8)
 
 <a name="demo_video"><h2>Демонстрационное видео</h2></a>
 К сожалению, GitHub не даёт загрузить файлы > 10 МБ, плохое качество, поэтому оно залито на YouTube:
