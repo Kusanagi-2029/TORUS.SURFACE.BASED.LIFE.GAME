@@ -265,7 +265,6 @@ class BorderDrawStrategy {
         this.step = step;
         this.thickness = thickness;
     }
-
     /**
      * Отрисовать границы клеток.
      * @param {CanvasRenderingContext2D} context - Контекст канваса.
