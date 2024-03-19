@@ -25,6 +25,8 @@
     - [Условия определения соседей](#neighbours_def)
     - [Условия прекращения игры](#game_stop)
     - [Паттерны](#patterns)
+    	- [1. Паттерн "Модуль"](#pattern1)
+     	- [2. Паттерн "Стратегия"](#pattern2)  
  
 <a name="begining"><h1>Начало работы с приложением</h1></a>
   Приложение встречает пользователя предзаготовленным шаблоном распределения "ЖИЗНЬ" и начинает отрабатывать по правилам Игры "Жизнь" через 1 секунду после полной отрисовки на странице:
@@ -431,11 +433,77 @@ class BorderDrawStrategy {
 ```
 
 <a name="patterns"><h3>Паттерны</h3></a>
-1. Код разбит на модули - Паттерн "Модуль":
+<a name="pattern1"><h4>1. Паттерн "Модуль"</h4></a>
+Код разбит на модули - Паттерн "Модуль":
 > [!TIP]
 > Паттерн "Модуль" (Module pattern) в программировании - это шаблон проектирования, который позволяет организовать код в модули, делая его более структурированным и модульным. Этот паттерн используется для создания пространства имен и инкапсуляции кода, чтобы избежать конфликтов имён и ненужных глобальных переменных.
 
-Например, код класса `LifeGame`:
+Структура проекта такова:
+1. Главным файлом скриптов - **точкой входа в программу** - является **`app.js`**, он заключает в себе все остальные файлы-модули:
+   
+![image](https://github.com/Kusanagi-2029/TORUS.SURFACE.BASED.LIFE.GAME/assets/71845085/75d585df-c314-425f-80b7-3e396e445b58)
+
+3. Вот код `app.js`:
+```js
+/**
+ * Главный файл приложения, инициализирующий все компоненты игры.
+ */
+// Классы
+import { Canvas } from './Classes/Canvas.js';
+import { GameRunner } from './Classes/GameRunner.js';
+import { LifeGame } from './Classes/LifeGame.js';
+
+// Общие доп.файлы
+import { delays } from './Shared/delays.js';
+import { fillFunctions } from './Shared/presets.js';
+import { createLifeMap } from './Shared/mapFunctions.js';
+
+// GUI - отрисовка, работа с Canvas'ом
+import { initializeGUI } from './Gui/gui.js';
+import { initializeFieldSize } from './Gui/fieldSize.js';
+
+// Обработчики пользовательских действий
+import { initializeHotkeysHandler } from './Gui/UiHandlers/hotkeysHandler.js';
+import { initializeMouseEventsHandler } from './Gui/UiHandlers/mouseEventsHandler.js';
+
+// Кнопки
+import { initializeLifeButton } from './Gui/Buttons/lifeButton.js';
+import { initializeDelayButtons } from './Gui/Buttons/delayButtons.js';
+import { initializePresetsButtons } from './Gui/Buttons/presetsButtons.js';
+import { initializeCellSizeButtons } from './Gui/Buttons/cellSizeButtons.js';
+import { initializeGenerationControlsButtons } from './Gui/Buttons/generationControlsButtons.js';
+
+// Ожидание загрузки документа
+document.addEventListener('DOMContentLoaded', () => {
+
+    /** Глобальная переменная для хранения времени создания нового поколения */
+    const newGenerationCreationTime = 0;
+
+    /** Создание экземпляра Canvas, представляющего игровое поле */
+    let canvasGrid = new Canvas(new LifeGame(newGenerationCreationTime));
+
+    /** Создание экземпляра GameRunner, управляющего выполнением игры */
+    let gameRunner = new GameRunner(canvasGrid, newGenerationCreationTime);
+
+    // Инициализация всех компонентов игры
+    initializeGUI(canvasGrid, gameRunner, createLifeMap);
+    initializeFieldSize(canvasGrid, gameRunner);
+
+    initializeHotkeysHandler();
+    initializeMouseEventsHandler(canvasGrid, gameRunner);
+
+    initializeLifeButton(canvasGrid, gameRunner, createLifeMap);
+    initializeDelayButtons(gameRunner, delays);
+    initializePresetsButtons(canvasGrid, gameRunner, fillFunctions);
+    initializeCellSizeButtons(canvasGrid, gameRunner);
+    initializeGenerationControlsButtons(canvasGrid, gameRunner);
+});
+```
+3. **Структура проекта** довольно самоописуема и не требует комментариев:
+   
+![image](https://github.com/Kusanagi-2029/TORUS.SURFACE.BASED.LIFE.GAME/assets/71845085/19db66df-1ff0-422a-89d1-889e7dfebd86)
+
+В качестве модуля, к примеру, можно рассмотреть код класса `LifeGame`:
 ```js
 /** 
  * Класс, представляющий игру "Жизнь".
@@ -623,7 +691,8 @@ export class LifeGame {
 
 Таким образом, класс `LifeGame` в данном коде представляет собой модуль, который реализует логику игры "Жизнь" и следует принципам паттерна "Модуль".
 
-2. Паттерн Стратегия (Strategy) - Применён в Canvas.js:
+<a name="pattern2"><h4>2. Паттерн "Стратегия"</h4></a>
+Паттерн "Стратегия" (Strategy) - Применён в Canvas.js:
 > [!TIP]
 > Паттерн Стратегия позволяет определить семейство алгоритмов, инкапсулировать каждый из них и сделать их взаимозаменяемыми. Он позволяет стратегии быть независимыми от клиентов, которые их используют. В данном случае, класс BorderDrawStrategy является реализацией этого паттерна. Он инкапсулирует логику отрисовки границ клеток на канвасе в зависимости от выбранной стратегии.
 
