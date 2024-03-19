@@ -29,40 +29,57 @@ export function initializeFieldSize(canvasGrid, gameRunner) {
 
     // Добавить обработчики события input для полей ввода ширины и высоты
     widthInput.addEventListener('input', function () {
+        // Получаем минимальное и максимальное значение для поля ввода ширины
         const minValue = parseInt(this.min);
         const maxValue = parseInt(this.max);
         let value = parseInt(this.value);
 
+        // Проверяем, является ли введенное значение числом
         if (isNaN(value)) {
+            // Если введенное значение не является числом, устанавливаем минимальное значение
             value = minValue;
         } else {
+            // Если введенное значение является числом, ограничиваем его диапазон значений
             value = Math.min(Math.max(value, minValue), maxValue);
         }
 
+        // Устанавливаем значение поля ввода в диапазоне от минимального до максимального значения
         this.value = value;
     });
 
     heightInput.addEventListener('input', function () {
+        // Получаем минимальное и максимальное значение для поля ввода высоты
         const minValue = parseInt(this.min);
         const maxValue = parseInt(this.max);
         let value = parseInt(this.value);
 
+        // Проверяем, является ли введенное значение числом
         if (isNaN(value)) {
+            // Если введенное значение не является числом, устанавливаем минимальное значение
             value = minValue;
         } else {
+            // Если введенное значение является числом, ограничиваем его диапазон значений
             value = Math.min(Math.max(value, minValue), maxValue);
         }
 
+        // Устанавливаем значение поля ввода в диапазоне от минимального до максимального значения
         this.value = value;
     });
 
     // Добавить обработчик события click для кнопки применения размера
     document.getElementById('btn_apply_size').addEventListener('click', () => {
+        // Получаем новые значения ширины и высоты поля из полей ввода
         const newWidth = parseInt(widthInput.value);
         const newHeight = parseInt(heightInput.value);
+
+        // Останавливаем игровой процесс
         gameRunner.stop();
+
+        // Устанавливаем новые размеры поля
         canvasGrid.width = newWidth;
         canvasGrid.height = newHeight;
+
+        // Обновляем отображение поля на канвасе
         canvasGrid.update();
     });
 
@@ -72,11 +89,15 @@ export function initializeFieldSize(canvasGrid, gameRunner) {
         const fx = parseFloat(element.dataset.sizeX);
         const fy = parseFloat(element.dataset.sizeY);
         element.addEventListener('click', () => {
+            // Останавливаем игровой процесс
             gameRunner.stop();
-            gameRunner.clearGenerationInfo(); // Очистить информацию о поколении.
+            // Очищаем информацию о поколении
+            gameRunner.clearGenerationInfo();
 
+            // Устанавливаем новые размеры поля относительно размеров окна браузера
             canvasGrid.height = window.innerHeight * fy;
-            canvasGrid.width = window.innerWidth * fx - 12; // Учтить ширину скролла
+            canvasGrid.width = window.innerWidth * fx - 12; // Учитываем ширину скролла
+            // Обновляем отображение поля на канвасе
             canvasGrid.update();
         });
     });
